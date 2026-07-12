@@ -1,15 +1,20 @@
-import { ArrowDownRight, ArrowRight, Cpu, Gauge, Network, ShieldCheck } from 'lucide-react';
-import { getPeople, getProjects } from '@/lib/data';
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Award, CalendarClock, Cpu, FileText, Gauge, Network, ShieldCheck } from 'lucide-react';
+import { getPeople, getProjects, getWritings, getCertifications } from '@/lib/data';
 import { TransitionLink } from '@/components/route-transition';
 import { NetworkScene } from '@/components/network-scene';
 import { PortraitFrame } from '@/components/portrait-frame';
 import { Reveal } from '@/components/reveal';
 import { SectionHeading } from '@/components/section-heading';
 import { ProjectCard } from '@/components/project-card';
+import { externalLinkProps, formatDate, statusTone } from '@/lib/utils';
 
 export default async function HomePage() {
-  const [person, projects] = await Promise.all([getPeople(), getProjects()]);
+  const [person, projects, writings, certifications] = await Promise.all([
+    getPeople(), getProjects(), getWritings(), getCertifications(),
+  ]);
   const featured = projects.slice(0, 3);
+  const featuredWritings = writings.slice(0, 3);
+  const featuredCerts = certifications.filter(c => c.status !== 'Expired').slice(0, 3);
 
   return (
     <>
@@ -101,6 +106,86 @@ export default async function HomePage() {
         </div>
         <Reveal className="section-link-row">
           <TransitionLink href="/projects" className="text-link">View all project records <ArrowRight size={16} /></TransitionLink>
+        </Reveal>
+      </section>
+
+      {/* ── Writings Preview ──────────────────────────────────── */}
+      <section className="section section--ruled container">
+        <Reveal>
+          <SectionHeading
+            index="03"
+            eyebrow="TECHNICAL WRITINGS"
+            title="Notes from inside the system."
+          />
+        </Reveal>
+        <div className="writing-list home-writing-list">
+          {featuredWritings.map((writing, index) => {
+            const content = (
+              <>
+                <div className="writing-row__index">0{index + 1}</div>
+                <div className="writing-row__main">
+                  <div className="writing-row__meta">
+                    <span className={statusTone(writing.status)}>{writing.status}</span>
+                    <time dateTime={writing.dateCreate}>{formatDate(writing.dateCreate, { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                  </div>
+                  <h3 className="writing-preview__title">{writing.name}</h3>
+                  <p>{writing.shortDescription}</p>
+                </div>
+                <div className="writing-row__action">
+                  {writing.urlFile ? <ArrowUpRight aria-hidden="true" /> : <FileText aria-hidden="true" />}
+                  <span>{writing.urlFile ? 'Read article' : 'Draft record'}</span>
+                </div>
+              </>
+            );
+            return (
+              <Reveal key={writing.id}>
+                {writing.urlFile ? (
+                  <a className="writing-row" href={writing.urlFile} {...externalLinkProps(writing.urlFile)}>{content}</a>
+                ) : (
+                  <article className="writing-row writing-row--disabled">{content}</article>
+                )}
+              </Reveal>
+            );
+          })}
+        </div>
+        <Reveal className="section-link-row">
+          <TransitionLink href="/writings" className="text-link">Read all articles <ArrowRight size={16} /></TransitionLink>
+        </Reveal>
+      </section>
+
+      {/* ── Certifications Preview ────────────────────────────── */}
+      <section className="section section--ruled container">
+        <Reveal>
+          <SectionHeading
+            index="04"
+            eyebrow="CREDENTIALS"
+            title="Validated knowledge on the record."
+          />
+        </Reveal>
+        <div className="cert-preview-grid">
+          {featuredCerts.map((cert, index) => (
+            <Reveal className="cert-card" key={cert.id}>
+              <div className="cert-card__visual">
+                <div
+                  className="cert-card__image"
+                  style={{ backgroundImage: `linear-gradient(135deg, rgba(8,11,13,.22), rgba(8,11,13,.76)), url(${cert.pictureUrl})` }}
+                  role="img"
+                  aria-label={`${cert.name} credential image`}
+                />
+                <span>0{index + 1}</span>
+                <Award aria-hidden="true" />
+              </div>
+              <div className="cert-card__body">
+                <span className={statusTone(cert.status)}>{cert.status}</span>
+                <h3 className="cert-preview__title">{cert.name}</h3>
+                <p>{cert.issuer}</p>
+                <div><CalendarClock size={14} /> Expires {formatDate(cert.expirationDate, { month: 'long', year: 'numeric' })}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="section-link-row">
+          <TransitionLink href="/certifications" className="text-link">View all credentials <ArrowRight size={16} /></TransitionLink>
         </Reveal>
       </section>
 
