@@ -2,6 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function NetworkScene() {
   const mount = useRef<HTMLDivElement>(null);
@@ -11,6 +15,23 @@ export function NetworkScene() {
     if (!element) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    let ctx: gsap.Context;
+    if (!reducedMotion) {
+      ctx = gsap.context(() => {
+        gsap.to(element, {
+          yPercent: 25,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: element.parentElement,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }, element);
+    }
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.z = 8.0;
@@ -104,6 +125,7 @@ export function NetworkScene() {
       satelliteMaterial.dispose();
       renderer.dispose();
       renderer.domElement.remove();
+      if (ctx) ctx.revert();
     };
   }, []);
 

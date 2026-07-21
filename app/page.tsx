@@ -199,7 +199,6 @@ export default async function HomePage() {
           <div className="manifesto__metrics">
             <div><strong>{person.skills.length}</strong><span>tools and systems</span></div>
             <div><strong>{projects.length}</strong><span>project records</span></div>
-            <div><strong>02</strong><span>internship chapters</span></div>
           </div>
         </div>
       </section>
