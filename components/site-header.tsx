@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { TransitionLink } from '@/components/route-transition';
 
 const links = [
@@ -23,7 +24,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-header__inner">
         <TransitionLink href="/" className="brand" aria-label="Go to homepage">
-          <span className="brand__mark">AF</span>
+          <Image src="/logo-light.png" alt="Logo" width={35} height={35} className="brand__mark" />
           <span className="brand__copy">
             <b>Achmad Fadil</b>
             <small>Cloud systems / 2026</small>

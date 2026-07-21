@@ -1,6 +1,7 @@
 'use client';
 
 import Link, { type LinkProps } from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   createContext,
@@ -63,7 +64,7 @@ export function RouteTransitionProvider({ children }: PropsWithChildren) {
       {children}
       <div className="route-wipe" ref={panel} aria-hidden="true">
         <div className="route-wipe__inner">
-          <span>AF</span>
+          <Image src="/logo-dark.png" alt="Logo" width={72} height={72} className="route-wipe__logo" priority />
           <small>REDEPLOYING INTERFACE</small>
         </div>
       </div>

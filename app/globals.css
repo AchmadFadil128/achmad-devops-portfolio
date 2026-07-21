@@ -72,7 +72,7 @@ main { min-height: 80vh; }
 .site-header { position: fixed; inset: 0 0 auto; z-index: 50; padding: 14px 0; }
 .site-header__inner { width: min(calc(100% - 28px), calc(var(--max) + 20px)); min-height: 64px; margin: auto; padding: 0 16px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 22px; background: rgba(8,11,13,.74); border: 1px solid var(--line); backdrop-filter: blur(20px); box-shadow: 0 16px 50px rgba(0,0,0,.16); }
 .brand { display: inline-flex; align-items: center; gap: 12px; width: fit-content; }
-.brand__mark { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid var(--acid); color: var(--acid); font: 800 12px/1 var(--mono); }
+.brand__mark { width: 35px; height: 35px; object-fit: contain; }
 .brand__copy { display: grid; gap: 3px; }
 .brand__copy b { font-size: 12px; }
 .brand__copy small { color: var(--muted); font: 500 8px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
