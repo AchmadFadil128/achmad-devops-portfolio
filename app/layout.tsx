@@ -3,6 +3,7 @@ import { RouteTransitionProvider } from '@/components/route-transition';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { AmbientPointer } from '@/components/ambient-pointer';
+import { CustomCursor } from '@/components/custom-cursor';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <RouteTransitionProvider>
           <AmbientPointer />
+          <CustomCursor />
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
