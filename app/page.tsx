@@ -21,7 +21,7 @@ export default async function HomePage() {
       <section className="hero">
         <NetworkScene />
         <div className="hero__telemetry hero__telemetry--left" aria-hidden="true">
-          <span>LAT 06.9175 S</span><span>LON 107.6191 E</span><span>ZONE / ID-JB</span>
+          <span>LAT 06.9175 S</span><span>LON 107.6191 E</span><span>ZONE / ID-DPK</span>
         </div>
         <div className="hero__telemetry hero__telemetry--right" aria-hidden="true">
           <span>K8S / READY</span><span>OBS / ACTIVE</span><span>AUTO / ENABLED</span>
@@ -46,7 +46,6 @@ export default async function HomePage() {
             <div className="hero__console" aria-label="Current engineering status">
               <span>$ systemctl status achmad.service</span>
               <b>● active (running)</b>
-              <small>Cloud engineering intern · CKA preparation track</small>
             </div>
           </div>
 

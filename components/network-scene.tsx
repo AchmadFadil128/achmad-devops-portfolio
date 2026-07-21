@@ -13,7 +13,7 @@ export function NetworkScene() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.z = 6.7;
+    camera.position.z = 8.0;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
