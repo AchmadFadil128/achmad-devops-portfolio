@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.gitignore
+README.md
+VALIDATION.md
+browser-artifacts
+*.log
+.DS_Store
+.env*
+!.env.example
